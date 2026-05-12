@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nirapa Srilerd | Logistics Portfolio</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;700&family=Fredoka:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family: 'Kanit', sans-serif;
+      background:
+        linear-gradient(rgba(5,20,40,0.82), rgba(5,20,40,0.88)),
+        url("IMG_5632.png");
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* เอฟเฟกต์แสงพื้นหลัง */
+    body::before{
+      content:"";
+      position:fixed;
+      width:500px;
+      height:500px;
+      background:rgba(255,215,0,0.12);
+      filter:blur(120px);
+      top:-150px;
+      right:-100px;
+      z-index:-1;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      width:400px;
+      height:400px;
+      background:rgba(0,183,255,0.18);
+      filter:blur(120px);
+      bottom:-120px;
+      left:-80px;
+      z-index:-1;
+    }
+
+    header{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+    }
+
+    .hero{
+      width:100%;
+      max-width:1200px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:50px;
+      align-items:center;
+    }
+
+    .profile-card{
+      background:rgba(255,255,255,0.08);
+      border:1px solid rgba(255,255,255,0.15);
+      backdrop-filter:blur(14px);
+      padding:35px;
+      border-radius:30px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.35);
+      animation:fadeUp 1.2s ease;
+    }
+
+    .profile-img{
+      width:260px;
+      height:260px;
+      border-radius:50%;
+      object-fit:cover;
+      border:6px solid #ffd54f;
+      display:block;
+      margin:auto;
+      box-shadow:0 0 40px rgba(255,213,79,0.6);
+    }
+
+    .name{
+      text-align:center;
+      margin-top:25px;
+      font-size:2.5rem;
+      font-family:'Fredoka', sans-serif;
+      color:#ffd54f;
+    }
+
+    .student{
+      text-align:center;
+      margin-top:10px;
+      color:#d6e8ff;
+      font-size:1rem;
+      line-height:1.8;
+    }
+
+    .intro{
+      animation:fadeUp 1.5s ease;
+    }
+
+    .intro h1{
+      font-size:4rem;
+      line-height:1.2;
+      font-family:'Fredoka', sans-serif;
+      color:#ffd54f;
+      text-shadow:0 0 15px rgba(255,213,79,0.5);
+    }
+
+    .intro p{
+      margin-top:25px;
+      font-size:1.1rem;
+      line-height:2;
+      color:#f2f7ff;
+    }
+
+    .highlight{
+      color:#00d9ff;
+      font-weight:600;
+    }
+
+    .btn{
+      display:inline-block;
+      margin-top:30px;
+      padding:15px 28px;
+      border-radius:50px;
+      background:linear-gradient(135deg,#ffd54f,#ffca28);
+      color:#001f3f;
+      text-decoration:none;
+      font-weight:700;
+      transition:0.3s;
+      box-shadow:0 8px 20px rgba(255,213,79,0.35);
+    }
+
+    .btn:hover{
+      transform:translateY(-4px) scale(1.03);
+    }
+
+    section{
+      max-width:1200px;
+      margin:auto;
+      padding:80px 20px;
+    }
+
+    .section-title{
+      font-size:2.5rem;
+      text-align:center;
+      margin-bottom:40px;
+      color:#ffd54f;
+      font-family:'Fredoka', sans-serif;
+    }
+
+    /* Accordion */
+    .accordion{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    .accordion-item{
+      background:rgba(255,255,255,0.08);
+      border-radius:20px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.12);
+      backdrop-filter:blur(10px);
+      transition:0.4s;
+    }
+
+    .accordion-item:hover{
+      transform:translateY(-3px);
+      box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .accordion-header{
+      padding:22px;
+      cursor:pointer;
+      font-size:1.3rem;
+      font-weight:600;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      color:#ffd54f;
+    }
+
+    .accordion-content{
+      max-height:0;
+      overflow:hidden;
+      transition:max-height 0.5s ease;
+      background:rgba(0,0,0,0.15);
+    }
+
+    .accordion-content .inside{
+      padding:25px;
+      line-height:2;
+      color:#eef5ff;
+    }
+
+    .accordion-item.active .accordion-content{
+      max-height:1000px;
+    }
+
+    /* Skill Cards */
+    .skill-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .skill-card{
+      background:rgba(255,255,255,0.08);
+      padding:25px;
+      border-radius:25px;
+      text-align:center;
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(255,255,255,0.1);
+      transition:0.4s;
+    }
+
+    .skill-card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 12px 30px rgba(0,0,0,0.25);
+    }
+
+    .skill-card img{
+      width:90px;
+      margin-bottom:15px;
+    }
+
+    .skill-card h3{
+      color:#ffd54f;
+      margin-bottom:10px;
+    }
+
+    .contact{
+      text-align:center;
+      padding-bottom:80px;
+    }
+
+    .contact p{
+      line-height:2;
+      font-size:1.1rem;
+    }
+
+    footer{
+      text-align:center;
+      padding:20px;
+      background:rgba(0,0,0,0.3);
+      font-size:0.95rem;
+    }
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(40px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    @media(max-width:900px){
+      .hero{
+        grid-template-columns:1fr;
+        text-align:center;
+      }
+
+      .intro h1{
+        font-size:2.8rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HERO -->
+  <header>
+    <div class="hero">
+
+      <div class="profile-card">
+        <img src="IMG_5589.jpeg" class="profile-img" alt="Profile">
+
+        <h2 class="name">Nirapa Srilerd</h2>
+
+        <div class="student">
+          รหัสนักศึกษา 6650100196 <br>
+          Logistics and Transportation (LTM)<br>
+          Panyapiwat Institute of Management
+        </div>
+      </div>
+
+      <div class="intro">
+        <h1>Smart Logistics <br> with AI & Data</h1>
+
+        <p>
+          สวัสดีค่ะ ฉันคือ <span class="highlight">Nirapa Srilerd</span>
+          นักศึกษาโลจิสติกส์ชั้นปีที่ 3
+          ที่เชื่อในการทำงานแบบ <span class="highlight">Smart & Fast</span>
+          พร้อมนำ AI และ Data Technology
+          มาพัฒนาระบบการขนส่ง คลังสินค้า
+          และการจัดการ Supply Chain ให้มีประสิทธิภาพสูงสุด
+        </p>
+
+        <a href="#about" class="btn">Explore Portfolio</a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+
+    <div class="accordion">
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          Career Goal
+          <span>+</span>
+        </div>
+
+        <div class="accordion-content">
+          <div class="inside">
+            มุ่งพัฒนาตัวเองสู่สายงานด้าน Logistics & Supply Chain Management
+            ที่ผสานการใช้ AI และ Data Technology
+            เพื่อเพิ่มประสิทธิภาพในการวางแผน
+            การขนส่ง และการจัดการข้อมูลในองค์กร
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          Logistics Skills
+          <span>+</span>
+        </div>
+
+        <div class="accordion-content">
+          <div class="inside">
+            • การจัดการระบบขนส่ง (5 Modes of Transport)<br>
+            • การคำนวณต้นทุนโลจิสติกส์<br>
+            • Inventory & Warehouse Management<br>
+            • การวางแผนกระบวนการขนส่ง<br>
+            • การวิเคราะห์ข้อมูลด้านโลจิสติกส์<br>
+            • Supply Chain Coordination<br>
+            • การจัดทำเอกสารและรายงานด้านโลจิสติกส์
+          </div>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <div class="accordion-header">
+          จุดเด่น
+          <span>+</span>
+        </div>
+
+        <div class="accordion-content">
+          <div class="inside">
+            • ผสมผสานความคิดสร้างสรรค์เข้ากับเทคโนโลยี<br>
+            • พัฒนาทักษะการใช้ AI เพื่อสร้างผลงานจริง<br>
+            • แก้ปัญหาเฉพาะหน้าได้ดี<br>
+            • วิเคราะห์ข้อมูลเพื่อหา Solution ที่ดีที่สุด
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- DIGITAL SKILLS -->
+  <section>
+    <h2 class="section-title">Digital & Productivity Skills</h2>
+
+    <div class="skill-grid">
+
+      <div class="skill-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/732/732220.png">
+        <h3>Microsoft Excel</h3>
+        <p>
+          วิเคราะห์ข้อมูลด้วย Pivot Table, VLOOKUP
+          และสร้าง Dashboard เพื่อจัดการข้อมูลโลจิสติกส์
+        </p>
+      </div>
+
+      <div class="skill-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968520.png">
+        <h3>Canva Design</h3>
+        <p>
+          ออกแบบ Presentation,
+          Infographic และสื่อธุรกิจให้ดูมืออาชีพ
+        </p>
+      </div>
+
+      <div class="skill-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/888/888879.png">
+        <h3>PowerPoint</h3>
+        <p>
+          สร้าง Slide Pitching ด้าน Logistics
+          ที่กระชับ ทันสมัย และเข้าใจง่าย
+        </p>
+      </div>
+
+      <div class="skill-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/5968/5968525.png">
+        <h3>Video Editing</h3>
+        <p>
+          ตัดต่อวิดีโอและ Storytelling
+          เพื่อการนำเสนอที่น่าสนใจ
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact">
+    <h2 class="section-title">Contact</h2>
+
+    <p>
+      📧 Email: Wawanira@example.com <br>
+      📱 Phone: 062-XXX-XXXX <br>
+      📍 Bangkok / Nonthaburi <br>
+      💼 LinkedIn: your-linkedin <br>
+      💻 Portfolio / GitHub: your-link
+    </p>
+  </section>
+
+  <footer>
+    © 2026 Nirapa Srilerd | Smart Logistics Portfolio
+  </footer>
+
+  <script>
+    const accordionItems = document.querySelectorAll(".accordion-item");
+
+    accordionItems.forEach(item => {
+      const header = item.querySelector(".accordion-header");
+
+      header.addEventListener("click", () => {
+        item.classList.toggle("active");
+      });
+    });
+  </script>
+
+</body>
+</html>
